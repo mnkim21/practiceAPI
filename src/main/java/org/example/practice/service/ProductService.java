@@ -14,6 +14,7 @@ Store and manage the product in memory
 @Service
 public class ProductService {
     private Map<String, Product> productStore = new HashMap<>();
+    private long nextId = 1; // Starting ID for new products
 
     // Get all Products
     public List<Product> getAllProducts() {
@@ -29,15 +30,16 @@ public class ProductService {
     // Add new product
     public void addProduct(Product product){
         // Check if productUid is null or empty
-        if (product.getProductUid() == null || product.getProductUid().isEmpty()) {
-            throw new IllegalArgumentException("productUid is required.");
-        }
-
-        // Check for uniqueness of productUid
-        if(productStore.containsKey(product.getProductUid())) {
-            throw new IllegalArgumentException("productUid must be unique. A product with this uid already exists.");
-        }
+//        if (product.getProductUid() == null || product.getProductUid().isEmpty()) {
+//            throw new IllegalArgumentException("productUid is required.");
+//        }
+//
+//        // Check for uniqueness of productUid
+//        if(productStore.containsKey(product.getProductUid())) {
+//            throw new IllegalArgumentException("productUid must be unique. A product with this uid already exists.");
+//        }
         // Use the product ID as the key and store the product in the HashMap
+        product.setProductUid(String.valueOf(nextId++)); // Set a unique productUid before storing it
         productStore.put(product.getProductUid(), product);
     }
 
